@@ -28,7 +28,13 @@ public class CharacterTest {
     }
     @Test
     public void Character_Die(){
-        
+        Character myFirstCharacter = new Character();
+        Character mySecondCharacter = new Character();
+
+        myFirstCharacter.setDamage(1000);
+        myFirstCharacter.atackOtherCharacter(mySecondCharacter);
+        mySecondCharacter.YouDiedOrNot();
+        assertEquals(false, mySecondCharacter.getAlive());
     }
 
 

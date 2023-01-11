@@ -5,19 +5,22 @@ public class Character {
     private int Level;
     private Boolean Alive;
     private int Damage;
+    private int HealingCapacity;
 
     public Character() {
         this.Health = 1000;
         this.Level = 1;
         this.Alive = true;
         this.Damage = 10;
+
     }
 
     public int getHealth() {
         return Health;
     }
     public void setHealth(int health) {
-        Health = health;
+        if(Health + health <= 1000) Health = health;
+        if(Health + health >+ 1000) Health = 1000;
     }
     public int getLevel() {
         return Level;
@@ -34,16 +37,28 @@ public class Character {
     public int getDamage() {
         return Damage;
     }
-
     public void setDamage(int damage) {
         Damage = damage;
     }
+    public int getHealingCapacity() {
+        return HealingCapacity;
+    }
+    public void setHealingCapacity(int healingCapacity) {
+        HealingCapacity = healingCapacity;
+    }
+
     public void atackOtherCharacter(Character objetive){
         objetive.setHealth(objetive.getHealth()-Damage);
     }
-    public void YouDied(){
+    public void HealingOtherCharacter(Character objetive){
+        if(objetive.getAlive()) setHealth(objetive.getHealth()+HealingCapacity);
+    }
+    public void YouDiedOrNot(){
         if(Health<=0) setAlive(false);
     }
+
+
+    
 
     
     
