@@ -7,8 +7,7 @@ public abstract class Character {
     private Boolean Alive;
     private int Damage;
     private int HealingCapacity;
-
-    
+    private int ActualPosition;
 
     //#region Constructor
     public Character() {
@@ -20,13 +19,14 @@ public abstract class Character {
         this.Id = 0;
     }
     
-    public Character(int id, int health, int level, int damage, int healingCapacity) {
+    public Character(int id, int health, int level, int damage, int healingCapacity, int actualPosition) {
         Id = id;
         Health = health;
         Alive = true;
         Level = level;
         Damage = damage;
         HealingCapacity = healingCapacity;
+        ActualPosition = actualPosition;
     }
 
 /*     public Character(int id, int health, int level, int damage, int healingCapacity) */
@@ -71,6 +71,13 @@ public abstract class Character {
     public void setId(int id) {
             Id = id;
     }
+    public int getActualPosition() {
+        return ActualPosition;
+    }
+
+    public void setActualPosition(int actualPosition) {
+        ActualPosition = actualPosition;
+    }
     //#endregion
     
     //#region Damage Methods
@@ -88,6 +95,7 @@ public abstract class Character {
         }
         return damageFirstCharacter;
     }
+    
     //#endregion
 
     //#region Healing Methods
@@ -98,6 +106,8 @@ public abstract class Character {
         if(Health<=0) setAlive(false);
     }
     //#endregion
+
+    
 
 
     
