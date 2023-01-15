@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class CharacterTest {
-   /*  
+    
     //#region iteration One
     @Test
     public void All_characters_when_created_have(){
@@ -86,5 +86,5 @@ public class CharacterTest {
 
     //#region iteration three
 
-    //#endregion */
+    //#endregion
 }

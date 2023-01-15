@@ -1,6 +1,6 @@
 package com.factoriaf5.kata;
 
-public abstract class Character {
+public class Character {
     private int Id;
     private int Health;
     private int Level;
