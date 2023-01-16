@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class CharacterTest {
-   /*  
+    
     //#region iteration One
     @Test
     public void All_characters_when_created_have(){
-        Character myCharacter = new Character();
+        MeleFighter myCharacter = new MeleFighter(1, 1000, 1, 10, 10, 0);
 
         assertEquals(1000, myCharacter.getHealth());
         assertEquals(true, myCharacter.getAlive());
@@ -17,16 +17,18 @@ public class CharacterTest {
     }
     @Test
     public void Characters_can_deal_damage_to_characters(){
-        Character myFirstCharacter = new Character();
-        Character mySecondCharacter = new Character(2, 1000, 10, 10, 10);
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 1000, 10, 10, 10,2);
 
+        
         myFirstCharacter.atackOtherCharacter(mySecondCharacter);
-        assertEquals(995, mySecondCharacter.getHealth());
+        System.out.println(mySecondCharacter.getHealth());
+        assertEquals(990, mySecondCharacter.getHealth());
     }
     @Test
     public void Character_Die(){
-        Character myFirstCharacter = new Character();
-        Character mySecondCharacter = new Character(2, 1000, 1, 10, 10);
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 1000, 10, 10, 10,2);
 
         myFirstCharacter.setDamage(1000);
         myFirstCharacter.atackOtherCharacter(mySecondCharacter);
@@ -36,23 +38,25 @@ public class CharacterTest {
     }
     @Test
     public void Characters_can_heal_to_characters(){
-        Character myFirstCharacter = new Character();
-        Character mySecondCharacter = new Character();
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 350, 10, 10, 10,2);
 
-        mySecondCharacter.setHealth(350);
+        myFirstCharacter.JoinToNewFaction("myFirstFaction");
+        mySecondCharacter.JoinToNewFaction("myFirstFaction");
+        
 
         myFirstCharacter.HealingOtherCharacter(mySecondCharacter);
         
 
-        assertEquals(370, mySecondCharacter.getHealth());
+        assertEquals(360, mySecondCharacter.getHealth());
     }
     //#endregion
 
     //#region iteration Two
     @Test 
     public void A_character_canoot_deal_damage_to_itself(){
-        Character myCharacter = new Character();
-        myCharacter.setId(0);
+        MeleFighter myCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        
 
         myCharacter.atackOtherCharacter(myCharacter);
 
@@ -60,11 +64,10 @@ public class CharacterTest {
     }
     @Test
     public void A_character_can_only_heal_itself(){
-        Character myFirstCharacter = new Character();
-        Character mySecondCharacter = new Character();
-        myFirstCharacter.setId(0);
-        mySecondCharacter.setId(1);
-        mySecondCharacter.setHealth(100);
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 100, 10, 10, 10,2);
+        
+      
 
         myFirstCharacter.HealingOtherCharacter(mySecondCharacter);
 
@@ -72,19 +75,111 @@ public class CharacterTest {
     }
     @Test
     public void damage_diference_levels(){
-        Character myFirstCharacter = new Character(0, 250, 10, 10,10);
-        Character mySecondCharacter = new Character(1, 250, 4, 10,10);
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 1000, 4, 10, 10,2);
         
         myFirstCharacter.atackOtherCharacter(mySecondCharacter);
         
         
 
-        assertEquals(235, mySecondCharacter.getHealth());
+        assertEquals(985, mySecondCharacter.getHealth());
     }
 
     //#endregion
 
     //#region iteration three
+    @Test
+    public void Characters_have_an_attack_Max_Range_mele_fighter(){
+        MeleFighter myFirstCharacter = new MeleFighter(0, 1000, 2, 10, 10, 3);
+        RangedFighter mySecondCharacter = new RangedFighter(1, 1000, 2, 10, 2, 4);
 
-    //#endregion */
+        assertEquals(true, myFirstCharacter.inRange(mySecondCharacter, myFirstCharacter.getActualPosition()));
+    }
+    @Test
+    public void Characters_must_be_in_range_to_deal_damage_to_a_target_mele_fighter(){
+        MeleFighter myFirstCharacter = new MeleFighter(0, 1000, 2, 10, 10, 3);
+        RangedFighter mySecondCharacter = new RangedFighter(1, 1000, 2, 10, 2, 4);
+        
+        myFirstCharacter.atackOtherCharacter(mySecondCharacter);
+        
+        
+
+        assertEquals(990, mySecondCharacter.getHealth());
+    }
+    @Test
+    public void Characters_have_an_attack_Max_Range_range_fighter(){
+        MeleFighter myFirstCharacter = new MeleFighter(0, 1000, 2, 10, 10, 3);
+        RangedFighter mySecondCharacter = new RangedFighter(1, 1000, 2, 10, 2, 4);
+
+        assertEquals(true, myFirstCharacter.inRange(mySecondCharacter, myFirstCharacter.getActualPosition()));
+    }
+    @Test
+    public void Characters_must_be_in_range_to_deal_damage_to_a_target_range_fighter(){
+        MeleFighter myFirstCharacter = new MeleFighter(0, 1000, 2, 10, 10, 20);
+        RangedFighter mySecondCharacter = new RangedFighter(1, 1000, 2, 10, 2, 4);
+        
+        mySecondCharacter.atackOtherCharacter(myFirstCharacter);
+        
+        
+
+        assertEquals(990, myFirstCharacter.getHealth());
+    }
+    //#endregion
+    //#region iteration four
+    @Test
+    public void Newly_created_Characters_belong_to_no_Faction(){
+        MeleFighter myCharacFighter = new MeleFighter(0, 1000, 12, 29, 2, 0);
+        assertEquals(0, myCharacFighter.getFactions().size());
+    }
+    @Test
+    public void A_Character_may_Join_or_Leave_one_or_more_Factions(){
+        MeleFighter myCharacFighter = new MeleFighter(0, 1000, 12, 29, 2, 0);
+
+        myCharacFighter.JoinToNewFaction("myFirstFaction");
+        myCharacFighter.JoinToNewFaction("mySecondFaction");
+        myCharacFighter.JoinToNewFaction("myThirdFaction");
+        myCharacFighter.LeaveToFaction("myThirdFaction");
+        
+        assertEquals(2, myCharacFighter.getFactions().size());
+    }
+    @Test
+    public void Players_belonging_to_the_same_Faction_are_considered_Allies(){
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 1000, 10, 10, 10,2);
+        myFirstCharacter.JoinToNewFaction("myFirstFaction");
+        myFirstCharacter.JoinToNewFaction("mySecondFaction");
+        mySecondCharacter.JoinToNewFaction("mySecondFaction");
+
+        assertEquals(true, myFirstCharacter.isAllied(mySecondCharacter));
+        assertEquals(true, mySecondCharacter.isAllied(myFirstCharacter));
+        
+    }
+    @Test
+    public void Allies_cannot_Deal_Damage_to_one_another(){
+        MeleFighter myFirstCharacter = new MeleFighter(1, 1000, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 1000, 10, 10, 10,2);
+
+        myFirstCharacter.JoinToNewFaction("myFirstFaction");
+        myFirstCharacter.JoinToNewFaction("mySecondFaction");
+        mySecondCharacter.JoinToNewFaction("mySecondFaction");
+
+        myFirstCharacter.atackOtherCharacter(mySecondCharacter);
+
+        assertEquals(1000, mySecondCharacter.getHealth());
+    }
+    
+    @Test 
+    public void Allies_can_Heal_one_another(){
+        MeleFighter myFirstCharacter = new MeleFighter(1, 250, 10, 10, 10, 0);
+        MeleFighter mySecondCharacter = new MeleFighter(2, 1000, 10, 10, 10,2);
+
+        myFirstCharacter.JoinToNewFaction("myFirstFaction");
+        myFirstCharacter.JoinToNewFaction("mySecondFaction");
+        mySecondCharacter.JoinToNewFaction("mySecondFaction");
+
+        mySecondCharacter.HealingOtherCharacter(myFirstCharacter);
+
+        assertEquals(260, myFirstCharacter.getHealth());
+    }
+    //#endregion
 }

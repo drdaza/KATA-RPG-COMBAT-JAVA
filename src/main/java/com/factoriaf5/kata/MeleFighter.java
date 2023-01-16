@@ -18,13 +18,13 @@ public class MeleFighter extends Character {
     
     @Override
     public void HealingOtherCharacter(Character objetive) {
-        // TODO Auto-generated method stub
+        
         super.HealingOtherCharacter(objetive);
     }
 
     @Override
     public void YouDiedOrNot() {
-        // TODO Auto-generated method stub
+        
         super.YouDiedOrNot();
     }
 
@@ -36,7 +36,7 @@ public class MeleFighter extends Character {
 
     @Override
     public int verifyDamager(int levelFirstCharacter, int damageFirstCharacter, Character SecondCharacter) {
-        // TODO Auto-generated method stub
+        
         return super.verifyDamager(levelFirstCharacter, damageFirstCharacter, SecondCharacter);
     }
 
