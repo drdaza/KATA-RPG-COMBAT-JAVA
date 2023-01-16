@@ -125,6 +125,7 @@ public class CharacterTest {
         assertEquals(990, myFirstCharacter.getHealth());
     }
     //#endregion
+    
     //#region iteration four
     @Test
     public void Newly_created_Characters_belong_to_no_Faction(){
