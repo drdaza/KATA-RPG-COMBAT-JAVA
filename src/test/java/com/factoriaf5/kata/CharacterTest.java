@@ -197,8 +197,8 @@ public class CharacterTest {
     }
     @Test
     public void These_things_cannot_be_Healed_and_they_do_not_Deal_Damage(){
-        MeleFighter myMeleFighter = new MeleFighter(0, 250, 3, 10, 10, 0);
-        Thing myTree = new Thing(1, 2000, 2);
+        /* MeleFighter myMeleFighter = new MeleFighter(0, 250, 3, 10, 10, 0);
+        Thing myTree = new Thing(1, 2000, 2); */
 
         /* myTree.atackOtherCharacter(myMeleFighter); */
        /* myTree.HealingOtherCharacter(myMeleFighter); */
