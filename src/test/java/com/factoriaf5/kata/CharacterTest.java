@@ -2,6 +2,7 @@ package com.factoriaf5.kata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import org.junit.jupiter.api.Test;
 
 public class CharacterTest {
@@ -181,6 +182,37 @@ public class CharacterTest {
         mySecondCharacter.HealingOtherCharacter(myFirstCharacter);
 
         assertEquals(260, myFirstCharacter.getHealth());
+    }
+    //#endregion
+
+    //#region iteration five
+    @Test
+    public void Characters_can_damage_non_character_things(){
+        MeleFighter myMeleFighter = new MeleFighter(0, 250, 3, 10, 10, 0);
+        Thing myTree = new Thing(1, 2000, 2);
+
+        myMeleFighter.atackOtherCharacter(myTree);
+
+        assertEquals(1990, myTree.getHealth());
+    }
+    @Test
+    public void These_things_cannot_be_Healed_and_they_do_not_Deal_Damage(){
+        MeleFighter myMeleFighter = new MeleFighter(0, 250, 3, 10, 10, 0);
+        Thing myTree = new Thing(1, 2000, 2);
+
+        /* myTree.atackOtherCharacter(myMeleFighter); */
+       /* myTree.HealingOtherCharacter(myMeleFighter); */
+       /* myMeleFighter.HealingOtherCharacter(myTree); */
+        
+    }
+    @Test 
+    public void When_reduced_to_0_Health_things_are_Destroyed(){
+        Thing myTree = new Thing(0, 2000, 0);
+        MeleFighter myMeleFighter = new MeleFighter(1, 250, 3, 2000, 10, 0);
+
+        myMeleFighter.atackOtherCharacter(myTree);
+
+        assertEquals(true, myTree.isDestroyed());
     }
     //#endregion
 }

@@ -32,6 +32,16 @@ public abstract class Character {
         ActualPosition = actualPosition;
         Factions = new ArrayList<String>();
     }
+    public Character(int id, int health, int actualPosition){
+        Id = id;
+        Health = health;
+        Alive = false;
+        Level = 0;
+        Damage = 0;
+        HealingCapacity = 0;
+        ActualPosition = actualPosition;
+        Factions = null;
+    }
 
 /*     public Character(int id, int health, int level, int damage, int healingCapacity) */
     //#endregion
@@ -97,17 +107,15 @@ public abstract class Character {
     
     //#region Damage Methods
     public void atackOtherCharacter(Character objetive){
-        if(objetive.getId() != getId() && !isAllied(objetive)){
+        if(getDamage()== 0) throw new UnsupportedOperationException("The things can't atack");
+        if(objetive.getId() != getId() && !isAllied(objetive) && objetive.getHealth() > 0 ){
             objetive.setHealthForDamage(verifyDamager(getLevel(), getDamage(), objetive));
         }
     }
     public int verifyDamager(int levelFirstCharacter,int damageFirstCharacter, Character SecondCharacter){
-        if(levelFirstCharacter-SecondCharacter.getLevel()>=5){
-            return damageFirstCharacter+(damageFirstCharacter*1/2);
-        }
-        if(levelFirstCharacter-SecondCharacter.getLevel()<=-5){
-            return damageFirstCharacter-(damageFirstCharacter*1/2);
-        }
+        if(levelFirstCharacter-SecondCharacter.getLevel()>=5) return damageFirstCharacter+(damageFirstCharacter*1/2);
+        if(levelFirstCharacter-SecondCharacter.getLevel()<=-5) return damageFirstCharacter-(damageFirstCharacter*1/2);
+        
         return damageFirstCharacter;
     }
     
@@ -115,6 +123,8 @@ public abstract class Character {
 
     //#region Healing Methods
     public void HealingOtherCharacter(Character objetive){
+        if(objetive.getDamage()== 0) throw new UnsupportedOperationException("The things can't be healed");
+        if(getHealingCapacity()== 0) throw new UnsupportedOperationException("The things can't healed");
         if(objetive.getAlive() && objetive.getId()==getId()) objetive.setHealth(getHealingCapacity());
         if(objetive.getAlive() && isAllied(objetive)) objetive.setHealth(getHealingCapacity()); 
     }
@@ -132,7 +142,9 @@ public abstract class Character {
         Factions.remove(index);
     }
     public boolean isAllied(Character objetive){
+        if(objetive.getFactions() == null) return false;
         if(getFactions().size() == 0 && objetive.getFactions().size() == 0) return false;
+        
         for (String faction : objetive.getFactions()){
             if(getFactions().contains(faction)) return true;
         }
